@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large Raw and Processed Datasets (regenerated via python3 src/preprocessing.py)
+data/raw/
+data/processed/ted_clean.csv
+
+# Large Precomputed Matrices (regenerated via python3 src/vectorization.py)
+models/content_cosine_sim.npy
+models/composite_content_sim.npy
+
+# User inputs and temporary extractions
+inputs/
+extracted_paper.txt
+ted_recommendation_system.zip
+
+# Virtual Environments & System Files
+.venv/
+venv/
+env/
+.DS_Store
+.user_env
+.bashrc

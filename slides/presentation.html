@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized TED Talks Recommendation System - Capstone Presentation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #0F172A;
+            color: #334155;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+        }
+        .slide-container {
+            width: 1000px;
+            max-width: 100%;
+            margin-bottom: 40px;
+        }
+        .slide {
+            background: #FFFFFF;
+            width: 1000px;
+            height: 562px; /* 16:9 ratio */
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            padding: 45px 55px;
+            position: relative;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            page-break-after: always;
+        }
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #F1F5F9;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+        }
+        .slide-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0F172A;
+            letter-spacing: -0.5px;
+        }
+        .ted-badge {
+            background-color: #E62B1E;
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 0.9rem;
+            padding: 4px 12px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: center;
+        }
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .card {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 18px 20px;
+            border-top: 4px solid #E62B1E;
+        }
+        .card h4 {
+            font-size: 1.1rem;
+            color: #0F172A;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .card p, .card li {
+            font-size: 0.88rem;
+            color: #475569;
+            line-height: 1.45;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        .metric-val {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #E62B1E;
+            line-height: 1.1;
+        }
+        .metric-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748B;
+            text-transform: uppercase;
+        }
+        .footer-note {
+            position: absolute;
+            bottom: 20px;
+            left: 55px;
+            right: 55px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            color: #94A3B8;
+            border-top: 1px solid #F1F5F9;
+            padding-top: 8px;
+        }
+        /* Cover slide specific */
+        .cover-slide {
+            background: #111827;
+            color: #FFFFFF;
+            border-left: 12px solid #E62B1E;
+            justify-content: center;
+        }
+        .cover-slide h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+        }
+        .cover-slide h3 {
+            font-size: 1.3rem;
+            color: #94A3B8;
+            font-weight: 400;
+            margin-bottom: 28px;
+        }
+        .badge-list span {
+            display: inline-block;
+            background: #1E293B;
+            color: #E2E8F0;
+            border: 1px solid #334155;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+
+    <!-- SLIDE 1: COVER -->
+    <div class="slide cover-slide">
+        <div>
+            <div style="margin-bottom: 15px;"><span class="ted-badge">SPRINGBOARD CAPSTONE</span></div>
+            <h1>Personalized TED Talks<br>Recommendation System</h1>
+            <h3>Machine Learning Engine combining Content-Based and Collaborative Filtering</h3>
+            <div class="badge-list" style="margin-top: 20px;">
+                <span>TF-IDF & Semantic LSA</span>
+                <span>SVD Matrix Factorization</span>
+                <span>Dynamic Hybrid Re-ranking</span>
+                <span>Streamlit Web App</span>
+            </div>
+            <div style="margin-top: 40px; color: #64748B; font-size: 0.9rem;">
+                Presented by Machine Learning Intern &nbsp;|&nbsp; SpringBoard Internship Program
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: PROBLEM STATEMENT -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-title">Problem Statement & Objectives</span>
+            <span class="ted-badge">CONTEXT</span>
+        </div>
+        <div class="slide-content">
+            <div class="two-col">
+                <div>
+                    <h3 style="font-size: 1.3rem; color: #0F172A; margin-bottom: 12px;">The Information Discovery Dilemma</h3>
+                    <p style="font-size: 0.95rem; line-height: 1.5; color: #475569; margin-bottom: 14px;">
+                        TED's repository spans thousands of multidisciplinary talks across technology, psychology, science, and global issues. Users face cognitive overload finding talks aligned with their evolving interests.
+                    </p>
+                    <ul style="font-size: 0.92rem; color: #334155;">
+                        <li><strong>Pure Content</strong> systems suffer from filter bubbles and fail to leverage community taste.</li>
+                        <li><strong>Pure Collaborative</strong> systems fail on cold-start (unseen talks or new users).</li>
+                        <li><strong>Our Solution:</strong> A robust, production-grade Hybrid Engine combining text semantics, emotional tone, and latent matrix factorization.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-top-color: #0284C7;">
+                    <h4>Core Deliverables</h4>
+                    <ul>
+                        <li>Cleaned & standardized 2,628 talks + transcripts corpus.</li>
+                        <li>14-dimensional emotional resonance modeling.</li>
+                        <li>TF-IDF & 100-factor Latent Semantic embeddings.</li>
+                        <li>SVD matrix factorization on 27,430 user interactions.</li>
+                        <li>Rigorous offline evaluation (Precision, Recall, NDCG, MAP).</li>
+                        <li>Interactive Streamlit web app with explainability.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>SpringBoard Internship Program</span>
+            <span>Slide 2 / 8</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: DATA PREPROCESSING -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-title">Dataset Overview & Preprocessing Pipeline</span>
+            <span class="ted-badge">MODULE 1-2</span>
+        </div>
+        <div class="slide-content">
+            <div class="three-col" style="margin-bottom: 20px;">
+                <div class="card">
+                    <div class="metric-val">2,628</div>
+                    <div class="metric-label">Curated Talks</div>
+                    <p style="margin-top: 8px;">Spanning 2006 to 2017 across 2,156 world-class speakers.</p>
+                </div>
+                <div class="card">
+                    <div class="metric-val">2,542</div>
+                    <div class="metric-label">Transcripts Ingested</div>
+                    <p style="margin-top: 8px;">Complete text transcripts tokenized and vectorized.</p>
+                </div>
+                <div class="card">
+                    <div class="metric-val">14</div>
+                    <div class="metric-label">Emotional Dimensions</div>
+                    <p style="margin-top: 8px;">Inspiring, Fascinating, Funny, Informative, Ingenious, etc.</p>
+                </div>
+            </div>
+            <div class="card" style="border-top-color: #10B981;">
+                <h4>Feature Extraction & Cleaning Pipeline</h4>
+                <p>Text normalization removes HTML and symbols; combines title (3x weight), tags (3x weight), speaker occupation, description, and transcript lead text into a rich representation. 14 user rating counts are normalized to probability vectors capturing audience emotional impact.</p>
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>SpringBoard Internship Program</span>
+            <span>Slide 3 / 8</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: ARCHITECTURE -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-title">Recommendation Engine Architecture</span>
+            <span class="ted-badge">MODULE 3-4</span>
+        </div>
+        <div class="slide-content">
+            <div class="two-col">
+                <div class="card" style="border-top-color: #2563EB;">
+                    <h4>1. Content-Based Layer</h4>
+                    <ul>
+                        <li><strong>TF-IDF:</strong> 12,000 unigrams + bigrams with sublinear TF scaling.</li>
+                        <li><strong>Semantic LSA:</strong> 100-component TruncatedSVD capturing thematic topic spaces.</li>
+                        <li><strong>Emotional Tone:</strong> 14D normalized cosine similarity.</li>
+                        <li><strong>Composite Sim:</strong> <code>0.70·TFIDF + 0.20·LSA + 0.10·Emotion</code></li>
+                    </ul>
+                </div>
+                <div class="card" style="border-top-color: #7C3AED;">
+                    <h4>2. Collaborative & Hybrid Layer</h4>
+                    <ul>
+                        <li><strong>SVD Factorization:</strong> Low-rank decomposition (40 latent factors) on sparse user-item interaction matrix.</li>
+                        <li><strong>Dynamic Hybrid Formula:</strong>
+                            <br><code>S = α·S_content + (1-α)·Norm(S_collab)</code>
+                        </li>
+                        <li><strong>Cold-Start Router:</strong> Graceful automated fallback to content-based similarity for users with &lt;3 interactions.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>SpringBoard Internship Program</span>
+            <span>Slide 4 / 8</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: EVALUATION -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-title">Quantitative Offline Benchmark Results</span>
+            <span class="ted-badge">MODULE 5</span>
+        </div>
+        <div class="slide-content">
+            <p style="font-size: 0.95rem; margin-bottom: 12px; color: #475569;">
+                Evaluated across 500 benchmark talks against TED editorial and viewer ground truth related talks:
+            </p>
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; background: #FFFFFF; border: 1px solid #E2E8F0; text-align: left;">
+                <thead>
+                    <tr style="background: #F1F5F9; color: #0F172A; border-bottom: 2px solid #CBD5E1;">
+                        <th style="padding: 10px 14px;">Recommendation Strategy</th>
+                        <th style="padding: 10px 14px;">Precision@5</th>
+                        <th style="padding: 10px 14px;">Recall@10</th>
+                        <th style="padding: 10px 14px;">NDCG@5</th>
+                        <th style="padding: 10px 14px;">NDCG@10</th>
+                        <th style="padding: 10px 14px;">MAP@10</th>
+                        <th style="padding: 10px 14px;">Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #E2E8F0;">
+                        <td style="padding: 10px 14px; font-weight: 600;">TF-IDF Cosine</td>
+                        <td style="padding: 10px 14px;">0.2368</td>
+                        <td style="padding: 10px 14px;">0.2979</td>
+                        <td style="padding: 10px 14px;">0.5414</td>
+                        <td style="padding: 10px 14px;">0.5607</td>
+                        <td style="padding: 10px 14px;">0.1758</td>
+                        <td style="padding: 10px 14px;">78.5%</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #E2E8F0;">
+                        <td style="padding: 10px 14px; font-weight: 600;">Semantic LSA</td>
+                        <td style="padding: 10px 14px;">0.1948</td>
+                        <td style="padding: 10px 14px;">0.2537</td>
+                        <td style="padding: 10px 14px;">0.4419</td>
+                        <td style="padding: 10px 14px;">0.4709</td>
+                        <td style="padding: 10px 14px;">0.1381</td>
+                        <td style="padding: 10px 14px;">78.0%</td>
+                    </tr>
+                    <tr style="background: #ECFDF5; border-bottom: 1px solid #A7F3D0; font-weight: 700; color: #065F46;">
+                        <td style="padding: 10px 14px;">Composite Content (Selected)</td>
+                        <td style="padding: 10px 14px;">0.2400</td>
+                        <td style="padding: 10px 14px;">0.3095</td>
+                        <td style="padding: 10px 14px;">0.5462</td>
+                        <td style="padding: 10px 14px;">0.5703</td>
+                        <td style="padding: 10px 14px;">0.1829</td>
+                        <td style="padding: 10px 14px;">78.6%</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 14px; background: #F8FAFC; border-left: 4px solid #059669; padding: 8px 12px; font-size: 0.85rem;">
+                <strong>Finding:</strong> Blending TF-IDF keywords, LSA topic semantics, and emotional tone delivers highest precision and ranking quality while maintaining high catalog discovery.
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>SpringBoard Internship Program</span>
+            <span>Slide 5 / 8</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: HYBRID TRADE-OFF -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-title">Hybrid Alpha (α) Optimization</span>
+            <span class="ted-badge">TRADE-OFF ANALYSIS</span>
+        </div>
+        <div class="slide-content">
+            <div class="two-col">
+                <div>
+                    <h4 style="font-size: 1.15rem; color: #0F172A; margin-bottom: 10px;">Balancing Discovery & Affinity</h4>
+                    <p style="font-size: 0.92rem; color: #475569; line-height: 1.5; margin-bottom: 12px;">
+                        Testing alpha from 0.0 (Pure Collab) to 1.0 (Pure Content) on held-out user interactions shows a sweet spot at <strong>α = 0.50 to 0.60</strong>:
+                    </p>
+                    <ul style="font-size: 0.88rem; color: #334155;">
+                        <li><strong>Hit Rate@10:</strong> Climbs to <strong>11.6%</strong> at α=0.40–0.60 vs 7.1% for pure content.</li>
+                        <li><strong>NDCG@10:</strong> Peaks at <strong>0.0507</strong> with balanced weights.</li>
+                        <li>Protects against cold-start while recommending serendipitous talks popular with similar personas.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Why the Hybrid Model Wins</h4>
+                    <p>1. <strong>Explainability:</strong> Content signals allow clear explanations ("Because you enjoyed topics X and Y").</p>
+                    <p style="margin-top: 6px;">2. <strong>Social Proof:</strong> Collaborative signals elevate high-quality talks vetted by peer communities.</p>
+                    <p style="margin-top: 6px;">3. <strong>Robustness:</strong> Seamless fallback ensures no user ever receives an empty recommendation list.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>SpringBoard Internship Program</span>
+            <span>Slide 6 / 8</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: DEPLOYMENT & STREAMLIT APP -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-title">Web Application Deployment & Features</span>
+            <span class="ted-badge">MODULE 6</span>
+        </div>
+        <div class="slide-content">
+            <div class="three-col">
+                <div class="card">
+                    <h4>Interactive UI (Port 8501)</h4>
+                    <ul>
+                        <li>Streamlit web application.</li>
+                        <li>4 recommendation modes: Hybrid, Content, Collaborative, Query Search.</li>
+                        <li>Dynamic α slider & tag filters.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Explainability Engine</h4>
+                    <ul>
+                        <li>Badge-based match scoring.</li>
+                        <li>Shared topic tags breakdown.</li>
+                        <li>14-dimension emotion badges.</li>
+                        <li>Direct TED watch links.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>FastAPI REST API (Port 8000)</h4>
+                    <ul>
+                        <li>Production REST endpoints.</li>
+                        <li>Interactive Swagger docs at <code>/docs</code>.</li>
+                        <li>Programmatic JSON responses.</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 18px; text-align: center; background: #111827; color: #FFFFFF; padding: 12px; border-radius: 8px; font-size: 0.95rem;">
+                🚀 Live App URL: <strong>https://winter-blessed-rhino.8501.dev.raccoonai.tech</strong>
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>SpringBoard Internship Program</span>
+            <span>Slide 7 / 8</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: CONCLUSION -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-title">Conclusion & Future Enhancements</span>
+            <span class="ted-badge">SUMMARY</span>
+        </div>
+        <div class="slide-content">
+            <div class="two-col">
+                <div class="card" style="border-top-color: #059669;">
+                    <h4>Key Accomplishments</h4>
+                    <ul>
+                        <li>Successfully implemented all 7 SpringBoard Internship modules.</li>
+                        <li>Cleaned 2,628 talks and extracted 14-dimensional emotion profiles.</li>
+                        <li>Engineered TF-IDF + Latent Semantic LSA + SVD Collaborative models.</li>
+                        <li>Demonstrated measurable benchmark improvements with hybrid architecture.</li>
+                        <li>Deployed interactive web app and REST API.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-top-color: #D97706;">
+                    <h4>Future Roadmap</h4>
+                    <ul>
+                        <li>Deep Learning Transformer embeddings (e.g. Sentence-BERT / RoBERTa).</li>
+                        <li>Real-time session-based RNN / Transformer recommendation.</li>
+                        <li>Multi-lingual cross-lingual transcript alignment for non-English talks.</li>
+                        <li>Online A/B testing framework.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>SpringBoard Internship Program</span>
+            <span>Slide 8 / 8</span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

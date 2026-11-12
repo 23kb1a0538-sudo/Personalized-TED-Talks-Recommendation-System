@@ -1,0 +1,26 @@
+{
+  "total_talks": 2628,
+  "total_speakers": 2228,
+  "total_interactions": 27430,
+  "total_users": 800,
+  "avg_duration_minutes": 13.73,
+  "avg_views": 1674773.88,
+  "median_views": 1112442.5,
+  "top_emotions": {
+    "Inspiring": 910,
+    "Informative": 756,
+    "Fascinating": 269,
+    "Funny": 163,
+    "Beautiful": 161,
+    "Ingenious": 102,
+    "Courageous": 87,
+    "Persuasive": 83,
+    "Jaw-dropping": 53,
+    "Unconvincing": 23,
+    "Longwinded": 8,
+    "OK": 7,
+    "Obnoxious": 4,
+    "Confusing": 2
+  },
+  "tags_count": 423
+}

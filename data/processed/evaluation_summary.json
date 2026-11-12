@@ -1,0 +1,101 @@
+{
+  "content_models": {
+    "TF-IDF Cosine": {
+      "Precision@5": 0.2368,
+      "Precision@10": 0.1752,
+      "Recall@5": 0.2011,
+      "Recall@10": 0.2979,
+      "NDCG@5": 0.5414,
+      "NDCG@10": 0.5607,
+      "MAP@10": 0.1758,
+      "Catalog_Coverage": 0.7854
+    },
+    "Semantic LSA": {
+      "Precision@5": 0.1948,
+      "Precision@10": 0.1494,
+      "Recall@5": 0.1654,
+      "Recall@10": 0.2537,
+      "NDCG@5": 0.4419,
+      "NDCG@10": 0.4709,
+      "MAP@10": 0.1381,
+      "Catalog_Coverage": 0.7801
+    },
+    "Composite (Hybrid Content)": {
+      "Precision@5": 0.24,
+      "Precision@10": 0.1824,
+      "Recall@5": 0.2033,
+      "Recall@10": 0.3095,
+      "NDCG@5": 0.5462,
+      "NDCG@10": 0.5703,
+      "MAP@10": 0.1829,
+      "Catalog_Coverage": 0.7858
+    }
+  },
+  "collaborative_models": {
+    "Collaborative SVD": {
+      "Precision@5": 0.0102,
+      "Precision@10": 0.0106,
+      "Recall@10": 0.0191,
+      "NDCG@10": 0.0464,
+      "Hit_Rate@10": 0.1037
+    },
+    "Item-Item CF": {
+      "Precision@5": 0.0083,
+      "Precision@10": 0.0071,
+      "Recall@10": 0.0135,
+      "NDCG@10": 0.0339,
+      "Hit_Rate@10": 0.0675
+    }
+  },
+  "hybrid_alpha_tradeoff": {
+    "Hybrid (alpha=0.0)": {
+      "Precision@5": 0.0102,
+      "Precision@10": 0.0106,
+      "Recall@10": 0.0191,
+      "NDCG@10": 0.0464,
+      "Hit_Rate@10": 0.1037
+    },
+    "Hybrid (alpha=0.2)": {
+      "Precision@5": 0.0107,
+      "Precision@10": 0.0111,
+      "Recall@10": 0.02,
+      "NDCG@10": 0.0486,
+      "Hit_Rate@10": 0.1075
+    },
+    "Hybrid (alpha=0.4)": {
+      "Precision@5": 0.01,
+      "Precision@10": 0.0121,
+      "Recall@10": 0.0213,
+      "NDCG@10": 0.0507,
+      "Hit_Rate@10": 0.1163
+    },
+    "Hybrid (alpha=0.5)": {
+      "Precision@5": 0.0105,
+      "Precision@10": 0.0118,
+      "Recall@10": 0.0202,
+      "NDCG@10": 0.0497,
+      "Hit_Rate@10": 0.1125
+    },
+    "Hybrid (alpha=0.6)": {
+      "Precision@5": 0.012,
+      "Precision@10": 0.0119,
+      "Recall@10": 0.0205,
+      "NDCG@10": 0.0507,
+      "Hit_Rate@10": 0.1138
+    },
+    "Hybrid (alpha=0.8)": {
+      "Precision@5": 0.0125,
+      "Precision@10": 0.01,
+      "Recall@10": 0.0182,
+      "NDCG@10": 0.0473,
+      "Hit_Rate@10": 0.0963
+    },
+    "Hybrid (alpha=1.0)": {
+      "Precision@5": 0.0083,
+      "Precision@10": 0.0073,
+      "Recall@10": 0.0115,
+      "NDCG@10": 0.0364,
+      "Hit_Rate@10": 0.0712
+    }
+  }
+}
